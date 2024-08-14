@@ -4,6 +4,7 @@ namespace Dewbud\CardConnect;
 
 use ArrayAccess;
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 class Fluent implements ArrayAccess, JsonSerializable
 {
@@ -138,7 +139,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    #[ReturnTypeWillChange] public function offsetGet($offset)
     {
         return $this->get($offset);
     }
