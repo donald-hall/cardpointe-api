@@ -87,7 +87,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return array
      */
-    public function toArray(): array {
+	#[ReturnTypeWillChange] public function toArray(): array {
         $data = $this->attributes;
 
         foreach ($this->casts as $key => $type) {
