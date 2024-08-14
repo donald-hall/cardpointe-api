@@ -4,6 +4,7 @@ namespace Dewbud\CardConnect\Responses;
 
 use ArrayAccess;
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 class Fluent implements ArrayAccess, JsonSerializable
 {
@@ -12,14 +13,14 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @var array
      */
-    protected $attributes = [];
+    protected array $attributes = [];
 
     /**
      * Create a new fluent container instance.
      *
-     * @param array|object $attributes
+     * @param object|array $attributes
      */
-    public function __construct($attributes = [])
+    public function __construct(object|array $attributes = [])
     {
         foreach ($attributes as $key => $value) {
             $this->attributes[$key] = $value;
@@ -30,12 +31,11 @@ class Fluent implements ArrayAccess, JsonSerializable
      * Get an attribute from the container.
      *
      * @param string $key
-     * @param mixed  $default
+     * @param mixed|null $default
      *
      * @return mixed
      */
-    public function get($key, $default = null)
-    {
+    public function get(string $key, mixed $default = null): mixed {
         if (array_key_exists($key, $this->attributes)) {
             return $this->attributes[$key];
         }
@@ -48,8 +48,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return array
      */
-    public function getAttributes()
-    {
+    public function getAttributes(): array {
         return $this->attributes;
     }
 
@@ -58,8 +57,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return array
      */
-    public function toArray()
-    {
+    public function toArray(): array {
         return $this->attributes;
     }
 
@@ -68,8 +66,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize()
-    {
+    #[ReturnTypeWillChange] public function jsonSerialize(): array {
         return $this->toArray();
     }
 
@@ -80,8 +77,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return string
      */
-    public function toJson($options = 0)
-    {
+    public function toJson(int $options = 0): string {
         return json_encode($this->jsonSerialize(), $options);
     }
 
@@ -92,8 +88,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return bool
      */
-    public function offsetExists($offset)
-    {
+    #[ReturnTypeWillChange] public function offsetExists($offset): bool {
         return isset($this->attributes[$offset]);
     }
 
@@ -104,8 +99,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @return mixed
      */
-    public function offsetGet($offset)
-    {
+    #[ReturnTypeWillChange] public function offsetGet($offset): mixed {
         return $this->get($offset);
     }
 
@@ -115,8 +109,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      * @param string $offset
      * @param mixed  $value
      */
-    public function offsetSet($offset, $value)
-    {
+    #[ReturnTypeWillChange] public function offsetSet($offset, $value): void {
         $this->attributes[$offset] = $value;
     }
 
@@ -125,8 +118,7 @@ class Fluent implements ArrayAccess, JsonSerializable
      *
      * @param string $offset
      */
-    public function offsetUnset($offset)
-    {
+    #[ReturnTypeWillChange] public function offsetUnset($offset): void {
         unset($this->attributes[$offset]);
     }
 
