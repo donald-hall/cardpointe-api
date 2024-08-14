@@ -65,7 +65,7 @@ class Fluent implements ArrayAccess, JsonSerializable
 	 *
 	 * @return mixed|string
 	 */
-    protected function castAttribute(string $type, string $key): mixed {
+	#[ReturnTypeWillChange] protected function castAttribute(string $type, string $key): mixed {
         $thing = $this->get($key);
 
         switch ($type) {
